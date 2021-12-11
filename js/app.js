@@ -12,7 +12,11 @@ function cargarEventListeners() {
     vaciarCarritoBtn.addEventListener('click', ()=>{
         articulosCarrito = [];
         limpiarHTML();
-        
+    })
+
+    document.addEventListener('DOMContentLoaded', () =>{
+        articulosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        carritoHTML();
     })
 } 
 
@@ -83,9 +87,11 @@ function carritoHTML(){
             `;
 
             //agrega el curso al carrito
-            contenedorCarrito.appendChild(row); 
-    
+            contenedorCarrito.appendChild(row);     
     });
+
+    sincronizarStorage();
+
 }
  //limpia los cursos del tbody
 function limpiarHTML(){
@@ -93,5 +99,9 @@ function limpiarHTML(){
         contenedorCarrito.removeChild(contenedorCarrito.firstChild);
 
     }
+}
+
+ function sincronizarStorage() {
+    localStorage.setItem('carrito',JSON.stringify(articulosCarrito));
 }
 
